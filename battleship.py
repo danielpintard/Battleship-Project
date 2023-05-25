@@ -15,12 +15,12 @@ print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
 for i, row in enumerate(player_board):
     print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
 
-# grid_dict = {}
-# for letter in 'ABCDEFGHIJ':
-#     for number in range(1, 11):
-#         key = letter + str(number)
-#         value = (ord(letter) - ord('A'), number - 1)
-#         grid_dict[key] = value
+grid_dict = {}
+for letter in 'ABCDEFGHIJ':
+    for number in range(1, 11):
+        key = letter + str(number)
+        value = (ord(letter) - ord('A'), number - 1)
+        grid_dict[key] = value
 
 board_dict = {'A1': (0, 0), 'A2': (0, 1), 'A3': (0, 2), 'A4': (0, 3), 'A5': (0, 4), 'A6': (0, 5), 'A7': (0, 6), 'A8': (0, 7), 'A9': (0, 8), 'A10': (0, 9), 
               'B1': (1, 0), 'B2': (1, 1), 'B3': (1, 2), 'B4': (1, 3), 'B5': (1, 4), 'B6': (1, 5), 'B7': (1, 6), 'B8': (1, 7), 'B9': (1, 8), 'B10': (1, 9),
@@ -41,6 +41,24 @@ def validate_coord_ledger(coord_ledger):
                 raise ValueError(print('validate_coord_ledger: INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
             else:
                 pass
+            
+def check_for_space(coord_ledger):
+    key_ledger = []
+    for k, v in board_dict.items():
+        for i in coord_ledger:
+            if i == k:
+                key_ledger.append(v)
+     
+    
+    for i in key_ledger:
+        if player_board[i] == 1:
+            raise ValueError(print('\nFor this particular example, space is already taken up in A1'))
+        else:
+            continue  
+                
+          
+    
+
 
 def aircraft_carrier():
     print('\nPreparing to deploy the aircraft carrier (5-units long) - ■ ■ ■ ■ ■')
@@ -71,9 +89,9 @@ def aircraft_carrier():
                     mut_coord =  chr(ord(letter) + 1) + number
                     coord_ledger.append(mut_coord)    
         else:
-            raise ValueError(print('ac_move: INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+            raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
         
-        print(coord_ledger)
+        #print(coord_ledger)
     
     while True:
         try:
@@ -83,6 +101,7 @@ def aircraft_carrier():
             coord_ledger.append(coord.upper())
             ac_move(coord, direction, coord_ledger)
             validate_coord_ledger(coord_ledger)
+            check_for_space(coord_ledger)
             break
         except ValueError:
             continue 
@@ -98,18 +117,236 @@ def aircraft_carrier():
     print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
     for i, row in enumerate(player_board):
         print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
-
+        
+    
 def battleship():
-    pass
+    print('\nPreparing to deploy the battleship (4-units long) - ■ ■ ■ ■ ')
 
+    def bs_move(coord, direc, coord_ledger):
+        if direc.lower() == 'left':    
+            for i in range(0,3):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) - 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'right':
+            for i in range(0,3):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) + 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'up':
+            for i in range(0,3):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) - 1) + number
+                    coord_ledger.append(mut_coord)     
+        elif direc.lower() == 'down':
+            for i in range(0,3):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) + 1) + number
+                    coord_ledger.append(mut_coord)    
+        else:
+            raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+        
+        #print(coord_ledger)
+    
+    while True:
+        try:
+            coord = input('At which coordinate would you like to begin placing the battleship: ')
+            direction = input('In which direction would you like to place the battleship in relation to the starting coordinate: ')
+            coord_ledger = []
+            coord_ledger.append(coord.upper())
+            bs_move(coord, direction, coord_ledger)
+            validate_coord_ledger(coord_ledger)
+            check_for_space(coord_ledger)
+            break
+        except ValueError:
+            continue 
+    
+    for i in coord_ledger:
+        for k,v in board_dict.items():
+            if i == k:
+                player_board[v] = 1
+    
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(player_board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    
 def cruiser():
-    pass
+    print('\nPreparing to deploy the cruiser (3-units long) - ■ ■ ■ ')
+
+    def cr_move(coord, direc, coord_ledger):
+        if direc.lower() == 'left':    
+            for i in range(0,2):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) - 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'right':
+            for i in range(0,2):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) + 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'up':
+            for i in range(0,2):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) - 1) + number
+                    coord_ledger.append(mut_coord)     
+        elif direc.lower() == 'down':
+            for i in range(0,2):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) + 1) + number
+                    coord_ledger.append(mut_coord)    
+        else:
+            raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+        
+        #print(coord_ledger)
+    
+    while True:
+        try:
+            coord = input('At which coordinate would you like to begin placing the cruiser: ')
+            direction = input('In which direction would you like to place the cruiser in relation to the starting coordinate: ')
+            coord_ledger = []
+            coord_ledger.append(coord.upper())
+            cr_move(coord, direction, coord_ledger)
+            validate_coord_ledger(coord_ledger)
+            break
+        except ValueError:
+            continue 
+    
+    for i in coord_ledger:
+        for k,v in board_dict.items():
+            if i == k:
+                player_board[v] = 1
+    
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(player_board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
 
 def submarine():
-    pass
+    print('\nPreparing to deploy the submarine (3-units long) - ■ ■ ■ ')
+
+    def sb_move(coord, direc, coord_ledger):
+        if direc.lower() == 'left':    
+            for i in range(0,2):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) - 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'right':
+            for i in range(0,2):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) + 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'up':
+            for i in range(0,2):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) - 1) + number
+                    coord_ledger.append(mut_coord)     
+        elif direc.lower() == 'down':
+            for i in range(0,2):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) + 1) + number
+                    coord_ledger.append(mut_coord)    
+        else:
+            raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+        
+        #print(coord_ledger)
+    
+    while True:
+        try:
+            coord = input('At which coordinate would you like to begin placing the submarine: ')
+            direction = input('In which direction would you like to place the sumbarine in relation to the starting coordinate: ')
+            coord_ledger = []
+            coord_ledger.append(coord.upper())
+            sb_move(coord, direction, coord_ledger)
+            validate_coord_ledger(coord_ledger)
+            break
+        except ValueError:
+            continue 
+    
+    for i in coord_ledger:
+        for k,v in board_dict.items():
+            if i == k:
+                player_board[v] = 1
+    
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(player_board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
 
 def destroyer():
-    pass
+    print('\nPreparing to deploy the destroyer (2-units long) - ■ ■')
+
+    def ds_move(coord, direc, coord_ledger):
+        if direc.lower() == 'left':    
+            for i in range(0,1):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) - 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'right':
+            for i in range(0,1):
+                letter = coord_ledger[-1][0]
+                number = coord_ledger[-1][1:]
+                mut_coord =  letter + str(int(number) + 1)
+                coord_ledger.append(mut_coord)    
+        elif direc.lower() == 'up':
+            for i in range(0,1):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) - 1) + number
+                    coord_ledger.append(mut_coord)     
+        elif direc.lower() == 'down':
+            for i in range(0,1):
+                    letter = coord_ledger[-1][0]
+                    number = coord_ledger[-1][1:]
+                    mut_coord =  chr(ord(letter) + 1) + number
+                    coord_ledger.append(mut_coord)    
+        else:
+            raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+        
+        #print(coord_ledger)
+    
+    while True:
+        try:
+            coord = input('At which coordinate would you like to begin placing the destroyer: ')
+            direction = input('In which direction would you like to place the destroyer in relation to the starting coordinate: ')
+            coord_ledger = []
+            coord_ledger.append(coord.upper())
+            ds_move(coord, direction, coord_ledger)
+            validate_coord_ledger(coord_ledger)
+            break
+        except ValueError:
+            continue 
+    
+    for i in coord_ledger:
+        for k,v in board_dict.items():
+            if i == k:
+                player_board[v] = 1
+    
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(player_board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
 
 def initialize_game():
     #**NOTE** Add an Introduction to game and explanation of rules here
@@ -200,7 +437,7 @@ def initialize_game():
 
     while True:
         try:
-            ship5 = input('\nWhich ship would you like to place down third?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
+            ship5 = input('\nWhich ship would you like to place down last?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
             if ship5 not in ['1', '2', '3', '4', '5'] or ship5 == ship or ship5 == ship2 or ship5 == ship3 or ship5 == ship4:
                 raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
             break
@@ -218,18 +455,15 @@ def initialize_game():
         submarine()
     elif ship5 == '5':
         destroyer()
-
-
+        
 
 
 
 initialize_game()
 
+
 #As of May 23rd 2023 8:00 PM - So I cleaned up the project immensely, quite literally overhauling all of the code so that less functions were being used and 
 #so that any existing functions were either more multifaceted/covered more functionality in fewer lines of code. 
 #Essentially, the aircraft_carier function is complete, so I would eseentially just have to copy, paste and tweak for each of the 
-#other functions. The only other thing I need to account for is when placing down ships on the board, particular positions need to logged/memorized in some way as to raise an error if I try to place a ship somewhere and there is another ship already there that is c
+#other functions. The only other thing I need to account for is when placing down ships on the board, particular positions need to logged/memorized in some way as to raise an error if I try to place a ship somewhere and there is another ship already there that is 
 #taking up space
-
-
-
