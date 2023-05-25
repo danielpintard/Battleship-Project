@@ -1,4 +1,5 @@
 import numpy as np 
+#from battleship_cpuopp import initialize_cpu
 
 # #creating the player board
 # matrix = np.zeros((10,10), dtype = str)
@@ -8,12 +9,6 @@ import numpy as np
 # player_board = np.core.defchararray.add(np.expand_dims(letters, axis=1), np.char.mod('%d', numbers))  
 
 player_board = np.zeros((10,10), dtype=int)
-vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-# Print the matrix with coordinate labels
-print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-for i, row in enumerate(player_board):
-    print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
 
 grid_dict = {}
 for letter in 'ABCDEFGHIJ':
@@ -38,7 +33,7 @@ def validate_coord_ledger(coord_ledger):
     for i in coord_ledger:
         for j in board_dict.keys():
             if i not in board_dict.keys():
-                raise ValueError(print('validate_coord_ledger: INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
+                raise ValueError(print('INVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
             else:
                 pass
             
@@ -52,7 +47,7 @@ def check_for_space(coord_ledger):
     
     for i in key_ledger:
         if player_board[i] == 1:
-            raise ValueError(print('\nFor this particular example, space is already taken up in A1'))
+            raise ValueError(print('\nINVALID COORDINATE AND/OR DIRECTION - The coordinate and/or direction chosen is invalid. Either the input was invalid or there is no more space in this direction.'))
         else:
             continue  
                 
@@ -218,6 +213,7 @@ def cruiser():
             coord_ledger.append(coord.upper())
             cr_move(coord, direction, coord_ledger)
             validate_coord_ledger(coord_ledger)
+            check_for_space(coord_ledger)
             break
         except ValueError:
             continue 
@@ -275,6 +271,7 @@ def submarine():
             coord_ledger.append(coord.upper())
             sb_move(coord, direction, coord_ledger)
             validate_coord_ledger(coord_ledger)
+            check_for_space(coord_ledger)
             break
         except ValueError:
             continue 
@@ -332,6 +329,7 @@ def destroyer():
             coord_ledger.append(coord.upper())
             ds_move(coord, direction, coord_ledger)
             validate_coord_ledger(coord_ledger)
+            check_for_space(coord_ledger)
             break
         except ValueError:
             continue 
@@ -350,7 +348,14 @@ def destroyer():
 
 def initialize_game():
     #**NOTE** Add an Introduction to game and explanation of rules here
-    
+    print('\nPrepare to deploy your ships\n')
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(player_board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+
     #Initial Prompting
     while True:
         try:
@@ -459,7 +464,6 @@ def initialize_game():
 
 
 
-initialize_game()
 
 #As of May 24th 2023 - Refactoring the whole program was definitely such a great move as it has now contributed to the completion of probably the first third of this project
 #now, I need to figure out how to conquer the next 1/3, which is creating the system that acts as the CPU opponent in this program. The final third is essentially conjoining the previous
