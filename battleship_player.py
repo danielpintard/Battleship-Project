@@ -17,6 +17,7 @@ for letter in 'ABCDEFGHIJ':
         value = (ord(letter) - ord('A'), number - 1)
         grid_dict[key] = value
 
+#the output of the above code 
 board_dict = {'A1': (0, 0), 'A2': (0, 1), 'A3': (0, 2), 'A4': (0, 3), 'A5': (0, 4), 'A6': (0, 5), 'A7': (0, 6), 'A8': (0, 7), 'A9': (0, 8), 'A10': (0, 9), 
               'B1': (1, 0), 'B2': (1, 1), 'B3': (1, 2), 'B4': (1, 3), 'B5': (1, 4), 'B6': (1, 5), 'B7': (1, 6), 'B8': (1, 7), 'B9': (1, 8), 'B10': (1, 9),
               'C1': (2, 0), 'C2': (2, 1), 'C3': (2, 2), 'C4': (2, 3), 'C5': (2, 4), 'C6': (2, 5), 'C7': (2, 6), 'C8': (2, 7), 'C9': (2, 8), 'C10': (2, 9),
@@ -28,6 +29,14 @@ board_dict = {'A1': (0, 0), 'A2': (0, 1), 'A3': (0, 2), 'A4': (0, 3), 'A5': (0, 
               'I1': (8, 0), 'I2': (8, 1), 'I3': (8, 2), 'I4': (8, 3), 'I5': (8, 4), 'I6': (8, 5), 'I7': (8, 6), 'I8': (8, 7), 'I9': (8, 8), 'I10': (8, 9), 
               'J1': (9, 0), 'J2': (9, 1), 'J3': (9, 2), 'J4': (9, 3), 'J5': (9, 4), 'J6': (9, 5), 'J7': (9, 6), 'J8': (9, 7), 'J9': (9, 8), 'J10': (9, 9)}
 
+def print_board(board):
+    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    # Print the matrix with coordinate labels
+    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
+    for i, row in enumerate(board):
+        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    
 
 def validate_coord_ledger(coord_ledger):
     for i in coord_ledger:
@@ -106,13 +115,7 @@ def aircraft_carrier():
             if i == k:
                 player_board[v] = 1
     
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
-        
+    print_board(player_board)    
     
 def battleship():
     print('\nPreparing to deploy the battleship (4-units long) - ■ ■ ■ ■ ')
@@ -165,12 +168,7 @@ def battleship():
             if i == k:
                 player_board[v] = 1
     
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    print_board(player_board)
     
 def cruiser():
     print('\nPreparing to deploy the cruiser (3-units long) - ■ ■ ■ ')
@@ -223,12 +221,7 @@ def cruiser():
             if i == k:
                 player_board[v] = 1
     
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    print_board(player_board)
 
 def submarine():
     print('\nPreparing to deploy the submarine (3-units long) - ■ ■ ■ ')
@@ -281,12 +274,7 @@ def submarine():
             if i == k:
                 player_board[v] = 1
     
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    print_board(player_board)
 
 def destroyer():
     print('\nPreparing to deploy the destroyer (2-units long) - ■ ■')
@@ -339,22 +327,11 @@ def destroyer():
             if i == k:
                 player_board[v] = 1
     
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    print_board(player_board)
 
-def initialize_game():
+def initialize_player():
     #**NOTE** Add an Introduction to game and explanation of rules here
-    print('\nPrepare to deploy your ships\n')
-    vertical_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-    horizontal_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    # Print the matrix with coordinate labels
-    print('  ' + ' '.join(horizontal_labels))  # Print horizontal axis labels
-    for i, row in enumerate(player_board):
-        print(vertical_labels[i] + ' ' + ' '.join(str(element) for element in row))
+    print_board(player_board)
 
     #Initial Prompting
     while True:
@@ -464,9 +441,3 @@ def initialize_game():
 
 
 
-
-#As of May 24th 2023 - Refactoring the whole program was definitely such a great move as it has now contributed to the completion of probably the first third of this project
-#now, I need to figure out how to conquer the next 1/3, which is creating the system that acts as the CPU opponent in this program. The final third is essentially conjoining the previous
-#2/3's into one fluid and funcitonal system
-
-#so I will get to work 
