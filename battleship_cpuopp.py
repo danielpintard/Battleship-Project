@@ -351,13 +351,15 @@ def ds_randomizer():
 
 def initialize_cpu():
     ac_randomizer()
-    bs_randomizer()
-    cr_randomizer()
-    sb_randomizer()
-    ds_randomizer()
+    # bs_randomizer()
+    # cr_randomizer()
+    # sb_randomizer()
+    # ds_randomizer()
     
     print('\nEnemy Deployment Complete')
     
+    print('\nenemy board: ')
     print_board(cpu_board)
+    print('\n')
 
 
