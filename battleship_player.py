@@ -354,90 +354,91 @@ def initialize_player():
     elif ship == '5':
         destroyer()
     
-    # while True:
-    #     try:
-    #         ship2 = input('\nWhich ship would you like to place down second?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
-    #         if ship2 not in ['1', '2', '3', '4', '5'] or ship2 == ship:
-    #             raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
-    #         break
-    #     except ValueError:
-    #         continue
+    while True:
+        try:
+            ship2 = input('\nWhich ship would you like to place down second?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
+            if ship2 not in ['1', '2', '3', '4', '5'] or ship2 == ship:
+                raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
+            break
+        except ValueError:
+            continue
         
-    # if ship2 == '1':
-    #     aircraft_carrier()
-    # elif ship2 == '2':
-    #     battleship()
-    # elif ship2 == '3':
-    #     cruiser()
-    # elif ship2 == '4':
-    #     submarine()
-    # elif ship2 == '5':
-    #     destroyer()
+    if ship2 == '1':
+        aircraft_carrier()
+    elif ship2 == '2':
+        battleship()
+    elif ship2 == '3':
+        cruiser()
+    elif ship2 == '4':
+        submarine()
+    elif ship2 == '5':
+        destroyer()
 
      
-    # while True:
-    #     try:
-    #         ship3 = input('\nWhich ship would you like to place down third?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
-    #         if ship3 not in ['1', '2', '3', '4', '5'] or ship3 == ship or ship3 == ship2:
-    #             raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
-    #         break
-    #     except ValueError:
-    #         continue
+    while True:
+        try:
+            ship3 = input('\nWhich ship would you like to place down third?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
+            if ship3 not in ['1', '2', '3', '4', '5'] or ship3 == ship or ship3 == ship2:
+                raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
+            break
+        except ValueError:
+            continue
      
                 
-    # if ship3 == '1':
-    #     aircraft_carrier()
-    # elif ship3 == '2':
-    #     battleship()
-    # elif ship3 == '3':
-    #     cruiser()
-    # elif ship3 == '4':
-    #     submarine()
-    # elif ship3 == '5':
-    #     destroyer()
+    if ship3 == '1':
+        aircraft_carrier()
+    elif ship3 == '2':
+        battleship()
+    elif ship3 == '3':
+        cruiser()
+    elif ship3 == '4':
+        submarine()
+    elif ship3 == '5':
+        destroyer()
     
-    # while True:
-    #     try:
-    #         ship4 = input('\nWhich ship would you like to place down fourth?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
-    #         if ship4 not in ['1', '2', '3', '4', '5'] or ship4 == ship or ship4 == ship2 or ship4 == ship3:
-    #             raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
-    #         break
-    #     except ValueError:
-    #         continue
+    while True:
+        try:
+            ship4 = input('\nWhich ship would you like to place down fourth?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
+            if ship4 not in ['1', '2', '3', '4', '5'] or ship4 == ship or ship4 == ship2 or ship4 == ship3:
+                raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
+            break
+        except ValueError:
+            continue
      
                 
-    # if ship4 == '1':
-    #     aircraft_carrier()
-    # elif ship4 == '2':
-    #     battleship()
-    # elif ship4 == '3':
-    #     cruiser()
-    # elif ship4 == '4':
-    #     submarine()
-    # elif ship4 == '5':
-    #     destroyer()
+    if ship4 == '1':
+        aircraft_carrier()
+    elif ship4 == '2':
+        battleship()
+    elif ship4 == '3':
+        cruiser()
+    elif ship4 == '4':
+        submarine()
+    elif ship4 == '5':
+        destroyer()
 
-    # while True:
-    #     try:
-    #         ship5 = input('\nWhich ship would you like to place down last?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
-    #         if ship5 not in ['1', '2', '3', '4', '5'] or ship5 == ship or ship5 == ship2 or ship5 == ship3 or ship5 == ship4:
-    #             raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
-    #         break
-    #     except ValueError:
-    #         continue
+    while True:
+        try:
+            ship5 = input('\nWhich ship would you like to place down last?\nEnter "1" for the aircraft carrier (this ship takes up 5 units on the board)\nEnter "2" for the battleship (this ship takes up 4 units on the board)\nEnter "3" for the cruiser (this ship takes up 3 units on the board)\nEnter "4" for the submarine (this ship takes up 3 units on the board)\nEnter "5" for the destroyer (this ship takes up 2 units on the board)\nType the number and Press Enter/Return: ')
+            if ship5 not in ['1', '2', '3', '4', '5'] or ship5 == ship or ship5 == ship2 or ship5 == ship3 or ship5 == ship4:
+                raise ValueError(print('\nINVALID INPUT - That ship may have already been placed or the input was invalid. Please enter "1", "2", "3", "4" or "5" to determine which ship is placed next' ))
+            break
+        except ValueError:
+            continue
      
                 
-    # if ship5 == '1':
-    #     aircraft_carrier()
-    # elif ship5 == '2':
-    #     battleship()
-    # elif ship5 == '3':
-    #     cruiser()
-    # elif ship5 == '4':
-    #     submarine()
-    # elif ship5 == '5':
-    #     destroyer()
-        
+    if ship5 == '1':
+        aircraft_carrier()
+    elif ship5 == '2':
+        battleship()
+    elif ship5 == '3':
+        cruiser()
+    elif ship5 == '4':
+        submarine()
+    elif ship5 == '5':
+        destroyer()
+    
+    print('\n_________________________________________________________________________________________________________________________')
 
 
 

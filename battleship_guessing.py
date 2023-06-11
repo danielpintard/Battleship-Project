@@ -9,34 +9,30 @@ game_over = False
 player_points = 0
 cpu_points = 0
 
-## OG cpu_guessing()
+#need to add smart fetaure to this 
 # def cpu_guessing():
 #     print('\n_________________________________________________________________________________________________________________________')
 #     print("\nIt is the enemy's turn to guess\n")
 #     global cpu_points
     
+#     #initialize hit_pos to keep track of the hit position
 #     hit_pos = None
+    
+#     #randomly generate guesses
 #     cpu_guess = (random.randint(0,9), random.randint(0,9))
-#     adj_pos = [((cpu_guess[0] - 1), cpu_guess[1]), 
-#                ((cpu_guess[0] + 1),cpu_guess[1]), 
-#                (cpu_guess[0],(cpu_guess[1] - 1)), 
-#                (cpu_guess[0],(cpu_guess[1] + 1))]
-#     # guesses = []
-#     # guesses.append(cpu_guess)
-#     # print(guesses)
     
 #     key = next((k for k, v in board_dict.items() if v == cpu_guess), None)
-
-    
 
 #     if player_board[cpu_guess] == 0:
 #         player_board[cpu_guess] = 2
 #         print('Enemy missed at', key)
 #         print('Enemy points: ', cpu_points)
+#     #if it hits a part of a ship 
 #     elif player_board[cpu_guess] == 1:
 #         player_board[cpu_guess] = 3
+#         hit_pos = cpu_guess
 #         cpu_points += 1
-#         print('Enemy missed at', key)
+#         print('Enemy hit at', key)
 #         print('Enemy points: ', cpu_points)
             
 #     print('\nYour Board')    
@@ -46,48 +42,47 @@ def cpu_guessing():
     print('\n_________________________________________________________________________________________________________________________')
     print("\nIt is the enemy's turn to guess\n")
     global cpu_points
-
-    hit_pos = None
-    hit_ship = False
-
-    while not hit_ship:
-        adj_pos = []
+    
+    hit_pos = None     
+    
+    while True:
         if hit_pos is None:
-            # Randomly select a position for initial guess
-            cpu_guess = (random.randint(0, 9), random.randint(0, 9))
+            cpu_guess = (random.randint(0,9), random.randint(0,9))
         else:
-            # Guess adjacent positions of the previously hit position
-            adj_pos = [((hit_pos[0] - 1), hit_pos[1]),
-                       ((hit_pos[0] + 1), hit_pos[1]),
-                       (hit_pos[0], (hit_pos[1] - 1)),
-                       (hit_pos[0], (hit_pos[1] + 1))]
-            cpu_guess = random.choice(adj_pos)
-
+            adj_pos = [((hit_pos[0] - 1), hit_pos[1]), ((hit_pos[0] + 1), hit_pos[1]), (hit_pos[0], (hit_pos[1] - 1)), (hit_pos[0], (hit_pos[1] + 1))]
+            random.shuffle(adj_pos)
+            cpu_guess = adj_pos[0]
+        
         key = next((k for k, v in board_dict.items() if v == cpu_guess), None)
-
-        if player_board[cpu_guess] == 0:
+        
+        if player_board[cpu_guess] == 1:
+            hit_pos = cpu_guess
+            player_board[cpu_guess] = 3
+            cpu_points += 1
+            print('Enemy hit at', key)
+            print('Enemy points: ', cpu_points)
+            adj_pos = [((hit_pos[0] - 1), hit_pos[1]), ((hit_pos[0] + 1), hit_pos[1]), (hit_pos[0], (hit_pos[1] - 1)), (hit_pos[0], (hit_pos[1] + 1))]
+            if all(player_board[pos[0], pos[1]] != 1 for pos in adj_pos):
+                hit_pos = None
+        elif player_board[cpu_guess] == 0:
             player_board[cpu_guess] = 2
             print('Enemy missed at', key)
             print('Enemy points: ', cpu_points)
-            hit_ship = False  # Continue guessing
-        elif player_board[cpu_guess] == 1:
-            player_board[cpu_guess] = 3
-            cpu_points += 1
-            print('Enemy missed at', key)
-            print('Enemy points: ', cpu_points)
-            hit_pos = cpu_guess  # Remember the hit position
-            hit_ship = all(player_board[pos] != 1 for pos in adj_pos)  # Check if ship is destroyed
-
-        print('\nYour Board')
-        print_board(player_board)
-
+            break
+            
+    print('\nYour board:\n')
+    print_board(player_board)       
+        
           
 def validate_guess(guess):
-    if guess.upper() in board_dict.keys():
-        return guess
-    else:
-        raise ValueError(print('\nINVALID INPUT - Remember the coordinates are indicated by letters A-J on the vertical axis and numbers 1-10 on the horizontal axis.\n'))
-
+    for k,v in board_dict.items():
+        if guess.upper() == k:
+            guess_coord = v
+            if guess_board[guess_coord] == 3 or guess_board[guess_coord] == 2:
+                raise ValueError(print('\nINVALID GUESS - You have already guessed at this coordinate. Please  enter a new coordinate.\n'))
+            else:
+                pass
+        
 
 def player_guessing():
     global player_points
@@ -114,19 +109,24 @@ def player_guessing():
         print('Your points: ', player_points)
         
     
-    print('\nGuess Board')    
+    print('\nGuess Board:\n')    
     print_board(guess_board)
+        
     
-    
-    
-    
-    
-
+#this works as it should 
 def initialize_guessing():
     global game_over
+    print('\nGuess Board:\n')
+    print_board(guess_board) 
+    player_turn = True
+    
     while game_over == False:
-        cpu_guessing()
-        player_guessing()
+        if player_turn == True:
+            player_guessing()
+        else:
+            cpu_guessing()
+        
+        player_turn = not player_turn
        
         # end game logic
         if cpu_points == 17:
